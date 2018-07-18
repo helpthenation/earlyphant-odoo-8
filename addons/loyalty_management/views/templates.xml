@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="assets_backend" name="loyalty_management assets_backend"
+                  inherit_id="point_of_sale.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/loyalty_management/static/src/js/loyalty.js"/>
+                <link rel="stylesheet" href="/loyalty_management/static/src/css/loyalty.css"/>
+            </xpath>
+        </template>
+
+
+        <template id="index" name="loyalty_management assets_frontend" inherit_id="point_of_sale.index">
+            <xpath expr="." position="inside">
+                <link href="/loyalty_management/static/src/css/loyalty.css" rel="stylesheet" type="text/css"/>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

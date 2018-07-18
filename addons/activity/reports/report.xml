@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+
+<report
+    id="activity_receipt"
+    model="activity"
+    string="Activity Receipt"
+    report_type="qweb-pdf"
+    name="activity.activity_receipt_pdf"
+    file="activity.activity_receipt_pdf"
+    menu="True"
+    />
+
+    </data>
+</openerp>

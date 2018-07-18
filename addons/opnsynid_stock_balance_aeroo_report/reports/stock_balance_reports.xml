@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!-- © 2016 OpenSynergy Indonesia>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
+<openerp>
+    <data>
+        <record id="stock_balance_ods_report" model="ir.actions.report.xml">
+            <field name="name">Stock Balance ODS</field>
+            <field name="type">ir.actions.report.xml</field>
+            <field name="model">stock.print_stock_balance</field>
+            <field name="report_name">stock_balance_ods</field>
+            <field name="report_type">aeroo</field>
+            <field name="in_format">oo-ods</field>
+            <field name="out_format" ref="report_aeroo.report_mimetypes_ods_ods"/>
+            <field name="parser_loc">opnsynid_stock_balance_aeroo_report/reports/stock_balance.py</field>
+            <field name="report_rml">opnsynid_stock_balance_aeroo_report/reports/stock_balance.ods</field>
+            <field name="parser_state">loc</field>
+            <field name="tml_source">file</field>
+        </record>
+        <record id="stock_balance_xls_report" model="ir.actions.report.xml">
+            <field name="name">Stock Balance XLS</field>
+            <field name="type">ir.actions.report.xml</field>
+            <field name="model">stock.print_stock_balance</field>
+            <field name="report_name">stock_balance_xls</field>
+            <field name="report_type">aeroo</field>
+            <field name="in_format">oo-ods</field>
+            <field name="out_format" ref="report_aeroo.report_mimetypes_xls_odt"/>
+            <field name="parser_loc">opnsynid_stock_balance_aeroo_report/reports/stock_balance.py</field>
+            <field name="report_rml">opnsynid_stock_balance_aeroo_report/reports/stock_balance.ods</field>
+            <field name="parser_state">loc</field>
+            <field name="tml_source">file</field>
+        </record>
+    </data>
+</openerp>
+

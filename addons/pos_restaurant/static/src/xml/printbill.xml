@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="PrintBillButton">
+        <span class="control-button order-printbill">
+            <i class="fa fa-print"></i>
+            Bill
+        </span>
+    </t>
+
+    <t t-name="BillReceipt">
+        <receipt align='center' width='40' value-thousands-separator='' >
+            <t t-if='receipt.company.logo'>
+                <img t-att-src='receipt.company.logo' />
+                <br/>
+            </t>
+            <t t-if='!receipt.company.logo'>
+                <h1><t t-esc='receipt.company.name' /></h1>
+                
+                <br/>
+            </t>
+    
+           <div font='b'>
+           
+                <!--<t t-if='receipt.shop.name'>
+                    <div><t t-esc='receipt.shop.name' /></div>
+                </t>
+                <t t-if='receipt.company.contact_address'>
+                    <div><t t-esc='receipt.company.contact_address' /></div>
+                </t>
+                <t t-if='receipt.company.phone'>
+                    <div>Tel:<t t-esc='receipt.company.phone' /></div>
+                </t>
+                <t t-if='receipt.company.vat'>
+                    <div>VAT:<t t-esc='receipt.company.vat' /></div>
+                </t>
+                <t t-if='receipt.company.email'>
+                    <div><t t-esc='receipt.company.email' /></div>
+                </t>
+                <t t-if='receipt.company.website'>
+                    <div><t t-esc='receipt.company.website' /></div>
+                </t>
+                <t t-if='receipt.header'>
+                    <div><t t-esc='receipt.header' /></div>
+                </t>-->
+                <t t-if='receipt.shop.name'>
+                <div><h3><t t-esc='receipt.shop.name' /></h3></div>
+                </t>
+                <br/>
+                <div class="pos-center-align"><h4>BILL</h4></div>
+                <br/>          
+                Date:<t t-esc="new Date().toString(Date.CultureInfo.formatPatterns.shortDate + ' ' +
+                Date.CultureInfo.formatPatterns.longTime)"/>
+                <div t-if='receipt.cashier'>
+                <div>
+                Name: <t t-esc='receipt.cashier' />
+                </div>
+                </div>
+                </div>
+                <hr/>
+                
+                <div>
+            <line>
+                 <left>Description</left>
+                 <right>
+                 <pre>  Q-ty</pre>
+                 </right>
+                    <right>Price</right>
+                <right>Amount</right>
+                </line>  
+                </div>
+                    <hr/>
+                <br/>
+
+             <!-- Orderlines -->               
+                 <div line-ratio='0.6'>          
+                 <t t-foreach='receipt.orderlines' t-as='line'>
+                    <t t-set='simple' t-value='line.discount === 0  and line.quantity === 1' />
+                    <t t-if='simple'>
+                        <line>
+                            <left><t t-esc='line.product_name' /></left>
+                            <right><value><t t-esc='line.price_display' /></value></right>
+                            
+                        </line>
+                    </t>
+                    <t t-if='!simple'>
+                        <line>
+                        <left><t t-esc='line.product_name' /></left>
+                         <right>
+                                <value value-decimals='3' value-autoint='on'>
+                                    <t t-esc='line.quantity' />
+                                </value>
+                                <value value-decimals='2'>
+                                    <t t-esc='line.price' />
+                                </value>
+                            </right>
+                            <right>
+                                <value><t t-esc='line.price_display' /></value>
+                            </right>
+                        </line>
+                        <line indent='1'>
+                            <t t-if='line.discount !== 0'>
+                            <left><p>With <t t-esc='line.discount' />% discount</p></left>
+                            </t>
+                        </line>
+                        <br/>
+                        
+                    </t>
+                </t>
+                
+                
+                </div>
+
+            <!-- Subtotal -->
+            <t t-set='taxincluded' t-value='Math.abs(receipt.subtotal - receipt.total_with_tax) &lt;= 0.000001' />
+            <t t-if='!taxincluded'>
+                <hr/>   
+                <line><left>Subtotal</left><right> <value><t t-esc="receipt.subtotal" /></value></right></line>
+                <t t-foreach='receipt.tax_details' t-as='tax'>
+                    <line>
+                        <!--<left><t t-esc='tax.name' /></left>-->
+                        <left>VAT Included 10%: </left>
+                        <right><value><t t-esc='tax.amount' /></value></right>
+                    </line>
+                </t>
+            </t>
+
+            <!-- Total -->
+            <hr/>
+            <line size='double-height'>
+                <left><pre>        TOTAL</pre></left>
+                <right><value><t t-esc='receipt.total_with_tax' /></value></right>
+            </line>
+            <br/>
+
+            <!-- Extra Payment Info -->
+
+            <t t-if='receipt.total_discount'>
+                <line>
+                    <left>Discounts</left>
+                    <right><value><t t-esc='receipt.total_discount'/></value></right>
+                </line>
+            </t>
+            <t t-if='taxincluded'>
+                <t t-foreach='receipt.tax_details' t-as='tax'>
+                    <line>
+                        <!--<left><t t-esc='tax.name' /></left>-->
+                        <left>VAT Included 10%: </left>
+                        <right><value><t t-esc='tax.amount' /></value></right>
+                    </line>
+                </t>
+            </t>
+
+            <!-- Footer -->
+            <t t-if='receipt.footer'>
+                <br/>
+                <pre><t t-esc='receipt.footer' /></pre>
+                <br/>
+                <br/>
+            </t>
+
+            <br/>
+            <div font='b'>
+                <!--<div><t t-esc='receipt.name' /></div>
+                <div><t t-esc='receipt.date.localestring' /></div>-->
+            </div>
+
+        </receipt>
+    </t>
+
+</templates>

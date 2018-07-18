@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="hotel_card_asset" name="hotel_card_pos hotel_card_asset assets_backend" inherit_id="point_of_sale.assets_backend">
+          <xpath expr="." position="inside">
+              <script type="text/javascript" src="/hotel_card_pos/static/src/js/hotel_card.js"/>
+              <link rel="stylesheet" href="/hotel_card_pos/static/src/css/hotel_card.css" type="text/css"/>
+          </xpath>
+        </template>
+        <template id="index" name="hotel_card_pos hotel_card_asset assets_frontend" inherit_id="point_of_sale.index">
+                  <xpath expr="." position="inside">
+                       <link href="/hotel_card_pos/static/src/css/hotel_card.css" rel="stylesheet" type="text/css"/>
+                       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+                  </xpath>
+            </template>
+    </data>
+</openerp>

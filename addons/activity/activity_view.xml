@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_activity_form" model="ir.ui.view">
+            <field name="name">activity.form</field>
+            <field name="model">activity</field>
+            <field name="arch" type="xml">
+                <form string="Booking Form">
+                    <header>
+                        <button string="Generate to Folio" name="generate_to_folio" type="object" icon="gtk-apply"  attrs="{'invisible':[('state','!=','confirm')]}"/>
+                        <button string="Confirm" name="confirm" type="object" icon="gtk-apply" attrs="{'invisible':[('state','!=','draft')]}"/>
+                        <button string="Cancel" name="done_cancel" states="confirm,done" type="object" icon="gtk-cancel"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,manual_invoice,done,cancel"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group colspan="4" col="4">
+                                <field name="name" class="oe_inline"/>
+                                <field name="date_order"/> <newline/>
+
+                                <field name="folio_id" />
+                                <field name="partner_id"/>
+                                <field name="room_no"/>
+
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Booking Items">
+                            <field name="booking_items" nolabel="1">
+                                    <tree string="Booking Line" editable="bottom">
+                                        <field name="destination"/>
+                                        <field name="qty"/>
+                                        <field name="discount"/>
+                                        <field name="unit_price"/>
+                                        <field name="price_subtotal"/>
+                                    </tree>
+                                <form string="Booking Form">
+                                    <group colspan="4" col="4">
+                                        <field name="destination"/>
+                                        <field name="qty"/><newline/>
+                                        <field name="discount"/>
+                                        <field name="unit_price"/>
+                                    </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                        <group col="2" class="oe_subtotal_footer oe_right">
+                            <field name="amount_subtotal" widget="monetary"/>
+                            <field name="vat_value" widget="monetary"/>
+                            <div class="oe_subtotal_footer_separator oe_inline">
+                              <label for="amount_total" />
+                            </div>
+                            <field name="amount_total" nolabel="1" widget='monetary'/>
+                        </group>
+                        <div class="oe_clear"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_activity_tree" model="ir.ui.view">
+            <field name="name">activity.tree</field>
+            <field name="model">activity</field>
+            <field name="arch" type="xml">
+                <tree string="Activity">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="folio_id"/>
+                    <field name="room_no"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+         <record model="ir.actions.act_window" id="action_activity">
+             <field name="name">Activity</field>
+             <field name="type">ir.actions.act_window</field>
+             <field name="res_model">activity</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">tree,form</field>
+         </record>
+
+
+         <menuitem name="Activity"
+            id="activity_menu"
+            parent="hotel.hotel_management_menu"
+            sequence="3"
+            />
+
+
+        <menuitem name="Activity"
+        id="activity_booking_menu"
+        action="action_activity"
+        parent="activity_menu"
+        groups="group_lunch_user"/>
+
+        </data>
+</openerp>

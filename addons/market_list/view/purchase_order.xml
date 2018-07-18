@@ -1,0 +1,300 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_kr_purchase_order_line_form">
+            <field name="name">kr.purchase.order.line.form</field>
+            <field name="model">kr.purchase.order.line</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Order Line">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="order_id"/>
+                                <field name="product_id"/>
+                                <field name="product_qty"/>
+                                <field name="product_uom_id"/>
+                                <field name="price_per_unit"/>
+                                <field name="sub_total"/>
+                            </group>
+                            <group>
+                                <field name="date_order"/>
+                                <field name="supplier_id"/>
+                                <field name="invoice_number"/>
+                                <field name="analytic_acc" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_kr_order_line_tree">
+            <field name="name">kr.purchase.order.line.tree</field>
+            <field name="model">kr.purchase.order.line</field>
+            <field name="arch" type="xml">
+                <tree string="Purchase Order Line">
+                    <field name="order_id"/>
+                    <field name="date_order"/>
+                    <field name="product_id"/>
+                    <field name="category_id"/>
+                    <field name="product_qty"/>
+                    <field name="product_uom_id"/>
+                    <field name="price_per_unit"/>
+                    <field name="sub_total"/>
+                    <field name="supplier_id"/>
+                    <field name="invoice_number"/>
+                    <field name="analytic_acc"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_purhcase_order_line_search" model="ir.ui.view">
+            <field name="name">kr.purchase.order.line.select</field>
+            <field name="model">kr.purchase.order.line</field>
+            <field name="arch" type="xml">
+                <search string="Purchase Order Line">
+                    <field name="order_id"/>
+                    <field name="date_order"/>
+                    <field name="product_id"/>
+                    <field name="category_id"/>
+                    <field name="product_qty"/>
+                    <field name="price_per_unit"/>
+                    <field name="sub_total"/>
+                    <field name="supplier_id"/>
+                    <field name="invoice_number"/>
+                    <field name="analytic_acc"/>
+                    <filter name="draft" string="Draft"
+                            domain="[('state','=', 'draft')]"/>
+
+                    <filter name="progress" string="Progress"
+                            domain="[('state','=', 'progress')]"/>
+
+                    <filter name="validate" string="Validate"
+                            domain="[('state','=', 'validate')]"/>
+
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="kr_purchase_order_line_action">
+            <field name="name">Purchase Order Line</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kr.purchase.order.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_purhcase_order_line_search"/>
+        </record>
+
+
+        <record model="ir.ui.view" id="view_kr_purchase_order">
+            <field name="name">kr.purchase.order.form</field>
+            <field name="model">kr.purchase.order</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Order" version="7.0">
+                    <header>
+                        <button name="button_to_progress" states="draft"
+                                string="Submit" type="object"
+                                class="oe_highlight"
+                                groups="market_list.group_market_list_purchaser"/>
+                        <button name="button_validate"
+                                states="progress"
+                                string="Validate"
+                                type="object"
+                                class="oe_highlight"
+                                groups="market_list.group_market_list_officer"/>
+                        <button name="create_move" states="validate"
+                                string="Payment" type="object"
+                                class="oe_highlight"
+                                groups="market_list.group_market_list_officer"/>
+                        <button name="button_to_draft" states="progress"
+                                string="Reset" type="object"
+                                groups="market_list.group_market_list_officer"/>
+                        <button name="button_receiver_product" attrs="{'invisible': [('picking', '!=', False)]}"
+                                string="Receive Product" type="object"
+                                class="oe_highlight"
+                                groups="market_list.group_market_list_purchaser"/>
+
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,progress,validate,double_validate,done"
+                               statusbar_colors='{"done":"blue"}'/>
+                        </header>
+                    <sheet>
+                        <div class="oe_edit_only">
+                            <label for="name" class="oe_inline"/>
+                        </div>
+                        <h1>
+                            <field name="name" class="oe_inline"/>
+                            <label string=","/>
+                            <field name="origin" class="oe_inline"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="date_order"/>
+                                <field name="payment_date" attrs="{'required':[('state','=','validate')],
+                                                                'invisible':[('state','=','draft')]}"/>
+                                <field name="journal_id" attrs="{'invisible':[('state','=','draft')]}"/>
+                                <field name="debit_acc" attrs="{'invisible':[('state','=','draft')]}" />
+                                <field name="credit_acc" attrs="{'invisible':[('state','=','draft')]}" />
+                                <field name="entry_ref"/>
+                                <field name="validate_by"/>
+                                <field name="is_a2a" invisible="1"/>
+                                <field name="picking" />
+                            </group>
+                            <group>
+                                <field name="request_date"/>
+                                <field name="requested_by"/>
+                                <field name="approved_date"/>
+                                <field name="approved_by"/>
+                                <field name="analytic_account_id"/>
+                                <field name="budget_controller" attrs="{'invisible':['|',('is_a2a','!=',True),('state','=','draft')]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Product" >
+                                <field name="order_line">
+                                    <tree editable="bottom">
+                                        <field name="date_order" invisible="1"/>
+                                        <field name="category_id"/>
+                                        <field name="product_id"/>
+                                        <field name="product_qty"/>
+                                        <field name="product_uom_id" />
+                                        <field name="price_per_unit_riel"/>
+                                        <field name="price_per_unit"/>
+                                        <field name="sub_total"/>
+                                        <field name="debit_acc"/>
+                                        <field name="analytic_acc" invisible="1"/>
+                                        <field name="supplier_id"/>
+                                        <field name="invoice_number"/>
+                                        <field name="state" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                        <group class="oe_subtotal_footer oe_right">
+                            <field name="amount_total" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                        <field name="description"/>
+                    </sheet>
+                    <div class="oe_chatter">
+                      <field name="message_follower_ids" widget="mail_followers"/>
+                      <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_kr_purchase_order_tree">
+            <field name="name">kr.purchase.order.tree</field>
+            <field name="model">kr.purchase.order</field>
+            <field name="arch" type="xml">
+                <tree string="Market List Request">
+                    <field name="name"/>
+                    <field name="origin"/>
+                    <field name="request_date"/>
+                    <field name="approved_date"/>
+                    <field name="approved_by"/>
+                    <field name="date_order"/>
+                    <field name="payment_date"/>
+                    <field name="analytic_account_id"/>
+                    <field name="validate_by"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_purhcase_order_search" model="ir.ui.view">
+            <field name="name">kr.purchase.order.select</field>
+            <field name="model">kr.purchase.order</field>
+            <field name="arch" type="xml">
+                <search string="Purchase Order">
+                    <field name="name" select="True" />
+                    <field name="origin" select="True" />
+                    <field name="request_date" select="True" />
+                    <field name="approved_date" select="True" />
+                    <field name="approved_by" select="True" />
+                    <field name="date_order" select="True" />
+                    <field name="payment_date" select="True" />
+                    <field name="analytic_account_id" select="True" />
+                    <field name="validate_by" select="True" />
+                    <field name="state" select="True" />
+                    <filter name="draft" string="Draft"
+                            domain="[('state','=', 'draft')]"/>
+
+                    <filter name="progress" string="Progress"
+                            domain="[('state','=', 'progress')]"/>
+
+                    <filter name="validate" string="Validate"
+                            domain="[('state','=', 'validate')]"/>
+
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="purchase_order_action">
+            <field name="name">vKirirom Purchase</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kr.purchase.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_draft": 1}</field>
+            <field name="domain">[('is_a2a','!=',True)]</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="a2a_purchase_order_action">
+            <field name="name">A2A Purchase</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kr.purchase.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_draft": 1}</field>
+            <field name="domain">[('is_a2a','=',True)]</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="purchase_order_action_progress">
+            <field name="name">Purchase Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kr.purchase.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','!=','draft'),('validate_by','=',uid)]</field>
+        </record>
+
+        <menuitem
+                id="menu_market_purchase_order_act"
+                name="Purchase Order"
+                sequence="10"
+                parent="parent_menu_market_list_request"/>
+        <menuitem
+                id="menu_market_purchase_order_validation_parent"
+                name="Validation"
+                sequence="10"
+                parent="parent_menu_market_list_request"/>
+        <menuitem
+            id="vkirirom_purchase_order_menu"
+            parent="menu_market_purchase_order_act"
+            action="purchase_order_action"
+            sequence="1"
+            />
+
+        <menuitem
+            id="menu_market_a2a_purchase_order"
+            parent="menu_market_purchase_order_act"
+            action="a2a_purchase_order_action"
+            sequence="2"
+            />
+
+        <menuitem
+            id="market_list_order_line_menu"
+            parent="menu_market_purchase_order_act"
+            action="kr_purchase_order_line_action"
+            sequence="3"
+            />
+
+        <menuitem
+            id="menu_market_purchase_order_validation"
+            parent="menu_market_purchase_order_validation_parent"
+            action="purchase_order_action_progress"
+            groups="market_list.group_market_list_officer"
+            />
+    </data>
+</openerp>

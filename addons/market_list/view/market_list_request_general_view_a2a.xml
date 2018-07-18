@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_market_list_general_a2a_request_form">
+            <field name="name">marketlist.general.request.form</field>
+            <field name="model">marketlist.general.a2a.request</field>
+            <field name="arch" type="xml">
+                <form string="General Request A2A" version="7.0">
+                    <header>
+                        <button name="button_draft"
+                                states="to_approve,approved"
+                                string="Reset"
+                                type="object"
+                                groups="market_list.group_market_list_request_manager"
+                                />
+
+                        <button name="button_to_approve" states="draft"
+                                string="Request approval" type="object"
+                                class="oe_highlight"/>
+
+                        <button name="button_approved"
+                                states="to_approve"
+                                string="Approve"
+                                type="object"
+                                class="oe_highlight"
+                                groups="market_list.group_market_list_request_manager"
+                                />
+                        <button name="button_generate_po"
+                                states="approved"
+                                string="Generate PO"
+                                type="object"
+                                class="oe_highlight"
+                                groups='market_list.group_market_list_purchaser'
+                                />
+
+                        <button name="button_rejected"
+                                states="to_approve"
+                                string="Reject"
+                                type="object"
+                                groups="market_list.group_market_list_request_manager"
+                                />
+
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,to_approve,approved,rejected,done"
+                               statusbar_colors='{"approved":"blue"}'/>
+                    </header>
+                    <sheet>
+                        <div class="oe_edit_only">
+                            <label for="name" class="oe_inline"/>
+                        </div>
+                        <h1>
+                            <field name="name" class="oe_inline"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="requested_by"/>
+                                <field name="approve_by"/>
+                                <field name="analytic_account_id"/>
+                            </group>
+                            <group>
+                                <field name="date_start"/>
+                                <field name="approve_date"/>
+                                <field name="purchaser"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Product" >
+                                <field name="product_line_a2a_ids">
+                                    <tree editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="product_qty"/>
+                                        <field name="product_uom_id" />
+                                        <field name="price_per_unit_est"/>
+                                        <field name="total_price_est"/>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                        <group class="oe_subtotal_footer oe_right">
+                                <div>
+                                    <label for="amount_total_est"/>
+                                </div>
+                                <field name="amount_total_est" nolabel="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            </group>
+                        <field name="description" />
+                    </sheet>
+                    <div class="oe_chatter">
+                      <field name="message_follower_ids" widget="mail_followers"/>
+                      <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_market_list_general_a2a_request_tree">
+            <field name="name">marketlist.general.a2a.request.tree</field>
+            <field name="model">marketlist.general.a2a.request</field>
+            <field name="arch" type="xml">
+                <tree string="Market List Request">
+                    <field name="name"/>
+                    <field name="date_start"/>
+                    <field name="requested_by"/>
+                    <field name="approve_by"/>
+                    <field name="analytic_account_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_a2a_general_search" model="ir.ui.view">
+            <field name="name">purchase.request.list.select</field>
+            <field name="model">marketlist.general.a2a.request</field>
+            <field name="arch" type="xml">
+                <search string="Search Purchase Request">
+                    <field name="requested_by" select="True"/>
+                    <field name="approve_by" select="True"/>
+                    <field name="analytic_account_id" select="True"/>
+                    <field name="date_start" select="True"/>
+                    <field name="approve_date" select="True"/>
+                    <field name="purchaser" select="True"/>
+                    <filter name="your_request" string="Your Request"
+                            domain="['|', '|',('requested_by','=', uid),('approve_by','=',uid),('purchaser', '=', uid)]"/>
+                    <field name="approve_by"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="market_list_general_a2a_request_form_action">
+            <field name="name">A2A General</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">marketlist.general.a2a.request</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_your_request":1}</field>
+            <field name="search_view_id" ref="view_a2a_general_search"/>
+        </record>
+
+        <menuitem id="parent_menu_market_list_general_a2a_request"
+                  name="Market List Request"
+        />
+        <menuitem
+            id="food_market_list_general_a2a_request_menu"
+            parent="menu_market_list_request_act"
+            action="market_list_general_a2a_request_form_action"
+            />
+    </data>
+</openerp>

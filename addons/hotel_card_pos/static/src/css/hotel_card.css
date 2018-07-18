@@ -1,0 +1,82 @@
+.pos .popup.popup-selection .selection {
+    overflow-y: auto;
+    max-height: 273px;
+    font-size: 16px;
+    width: auto;
+    line-height: 50px;
+    margin-top: -1px;
+    border-top: solid 3px #6EC89B;
+
+}
+
+.pos .paypad .hotel_card_button {
+    height: 39px;
+    display: block;
+    width: 100%;
+    margin: 0px -6px 4px -2px;
+    font-weight: bold;
+    vertical-align: middle;
+    color: #555555;
+    font-size: 14px;
+}
+.pos .paypad .hotel_card_button:hover {
+    height: 39px;
+    display: block;
+    width: 100%;
+    margin: 0px -6px 4px -2px;
+    font-weight: bold;
+    vertical-align: middle;
+    color: #52a413;
+    background: rgb(227, 238, 255);
+    font-size: 14px;
+}
+
+
+.pos .clientlist-screen .client-list .client-line  {
+    transition: all 150ms linear;
+    background: rgb(230,230,230);
+}
+.pos .clientlist-screen .client-list .client-line:hover {
+    transition: all 150ms linear;
+    background: rgb(227, 238, 255);
+    color: #39cc3e;
+}
+.pos .clientlist-screen .client-list {
+    font-size: 16px;
+    width: 100%;
+    line-height: 40px;
+}
+
+.pos .screen .screen-content {
+    text-align: center;
+    overflow: scroll;
+}
+
+.pos .screen .top-content .button:hover{
+    background: #c02c2c;
+    color:white;
+    border: solid 1px black;
+}
+
+.pos .popup-confirm .footer .cancel:hover{
+    background: #c02c2c;
+    color:white;
+    border: solid 1px black;
+}
+
+.pos .popup-confirm .footer .confirm:hover{
+    color: #52a413;
+    background: rgb(227, 238, 255);
+}
+
+.pos .popup-confirm .comment{
+    width: auto;
+    background: rgb(230,230,230);
+    cursor: pointer;
+    text-align: left;
+    padding: 10px 16px;
+}
+
+.pos .popup-confirm .comment:nth-child(even) {
+    background: rgb(247,247,247);
+}

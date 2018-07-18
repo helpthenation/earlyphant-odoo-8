@@ -1,0 +1,80 @@
+<openerp>
+    <data>
+        <!--inherit view in hotel_folio-->
+        <record model="ir.ui.view" id="hotel_folio_receipt_no">
+            <field name="name">hotel.folio.form</field>
+            <field name="model">hotel.folio</field>
+            <field name="inherit_id" ref="hotel.view_hotel_folio1_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoiced']" position="after">
+                    <field name="receipt_no"/>
+                    <field name="ref_booking"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--inherit view in sale_order-->
+        <record model="ir.ui.view" id="hotel_folio_receipt_in_sale">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="receipt_no"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="folio_in_sale_order">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="fol_no_so"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--inherit view in customer_invoive-->
+        <record model="ir.ui.view" id="hotel_folio_receipt_in_invoice">
+            <field name="name">account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='fiscal_position']" position="after">
+                    <field name="receipt_no"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--inherit view in hotel_reservation-->
+        <record model="ir.ui.view" id="booking_reference">
+            <field name="name">hotel.reservation.form</field>
+            <field name="model">hotel.reservation</field>
+            <field name="inherit_id" ref="hotel_reservation.view_hotel_reservation_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_order_id']" position="after">
+                    <field name="ref_booking"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="folio_no_invoice">
+            <field name="name">account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='fiscal_position']" position="after">
+                    <field name="fol_no_inv"/>
+                </xpath>
+                <xpath expr="//field[@name='date_invoice']" position="after">
+                    <field name="checkin"/>
+                </xpath>
+                <xpath expr="//field[@name='journal_id']" position="before">
+                    <field name="checkout"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

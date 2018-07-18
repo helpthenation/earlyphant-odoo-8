@@ -1,0 +1,75 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="view_payment_report">
+			<field name="name">mk.payment.report.name</field>
+			<field name="model">mk.payment.report.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Payment Report" >
+					<group col="4">
+						<field name="date_start" required="1" />
+						<field name="date_end" required="1" />
+					</group>
+					<footer>
+						<button name="print_report" string="Print Report" type="object"
+							class="oe_highlight" />
+						or
+						<button string="Cancel" class="oe_link" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+		<record model="ir.actions.act_window" id="kr_payment_report_wizard">
+			<field name="name">Details Payment Report</field>
+			<field name="res_model">mk.payment.report.wizard</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+			
+		</record>
+		<menuitem
+            id="payment_report_menu"
+            parent="order_report_statistic_menu_parent"
+            action="kr_payment_report_wizard"
+            />
+
+        <record model="ir.ui.view" id="view_supplier_payment_report">
+			<field name="name">mk.supplier.payment.report.name</field>
+			<field name="model">mk.supplier.payment.report.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Supplier Payment Report">
+					<group>
+						<group col="4">
+							<field name="supplier_id" required="1"/>
+						</group>
+						<group col="4">
+							<field name="date_start" required="1" />
+							<field name="date_end" required="1" />
+						</group>
+					</group>
+					
+					<footer>
+						<button name="print_report" string="Print Report" type="object" class="oe_highlight"/>
+						or
+						<button string="Cancel" class="oe_link" special="cancel"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+        <record model="ir.actions.act_window" id="supplier_payment_voucher_wizard_action">
+			<field name="name">Supplier Payment Report</field>
+			<field name="res_model">mk.supplier.payment.report.wizard</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+			
+		</record>
+        <menuitem
+            id="supplier_payment_report_menu"
+            parent="order_report_statistic_menu_parent"
+            action="supplier_payment_voucher_wizard_action"
+            />
+
+	</data>
+</openerp>

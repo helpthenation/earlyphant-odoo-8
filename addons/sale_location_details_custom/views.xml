@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_detailsofsales_location" inherit_id="report_sale_location.report_detailsofsales_location">
+            <xpath expr="//table[2]" position="after">
+                <table class="table table-condensed">
+                    <thead>
+                        <th>
+                            <strong>Category</strong>
+                        </th>
+                        <th>
+                            <strong>Product Quantity</strong>
+                        </th>
+                        <th>
+                            <strong>Total Discount</strong>
+                        </th>
+                        <th class="text-right">
+                            <strong>Total Price</strong>
+                        </th>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="pos_sales_details_custom(data['form'])" t-as="line_ids">
+                            <td>
+                                <span t-esc="line_ids['product_categ_id'][1]"/>
+                            </td>
+                            <td>
+                                <span t-esc="line_ids['product_qty']"/>
+                            </td>
+                            <td>
+                                <span t-esc="formatLang(line_ids['total_discount'], currency_obj=res_company.currency_id)"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="formatLang(line_ids['price_total']-line_ids['total_discount'], currency_obj=res_company.currency_id)"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <t t-set="is_restaurant_var" t-value="is_restaurant(data['form'])"/>
+                <t t-if="is_restaurant_var">
+                    <h2>Hotel Card Details</h2>
+                    <table class="table table-condensed">
+                    <thead>
+                        <th><strong>Order Date</strong></th>
+                        <th><strong>Order Reference</strong></th>
+                        <th class="text-center"><strong>Subtotal</strong></th>
+                        <th><strong>VAT</strong></th>
+                        <th class="text-center"><strong>Total</strong></th>
+                    </thead>
+                        <tbody>
+                            <tr t-foreach="get_daily_hotel_card_order(data['form'])" t-as="line_ids">
+                                <td>
+                                    <span t-esc="formatLang(line_ids['order_date'], date_time=True)"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line_ids['order_no']"/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-esc="formatLang(line_ids['subtotal'], dp='Sale Price', currency_obj=res_company.currency_id)"/>
+                                </td>
+                                 <td>
+                                    <span t-esc="formatLang(line_ids['vat'], dp='Sale Price', currency_obj=res_company.currency_id)"/>
+                                </td>
+
+                                <td class="text-center">
+                                    <span t-esc="formatLang(line_ids['total'], dp='Sale Price', currency_obj=res_company.currency_id)"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                <table class="table table-condensed">
+                    <thead>
+                        <th><strong>Category</strong></th>
+                        <th><strong>Product Quantity</strong></th>
+                        <th><strong>Total Discount</strong></th>
+                        <th class="text-right"><strong>Total Price</strong></th>
+                    </thead>
+                    <tbody>
+                        <t t-set="res" t-value="get_daily_hotel_card_details(data['form'])"/>
+                        <tr t-foreach="res" t-as="line_ids">
+                            <td>
+                                <span t-esc="line_ids"/>
+                            </td>
+                            <td>
+                                <span t-esc="res[line_ids][0]"/>
+                            </td>
+                            <td>
+                                <span t-esc="formatLang(res[line_ids][1], currency_obj=res_company.currency_id)"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="formatLang(res[line_ids][2], currency_obj=res_company.currency_id)"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Hotel Card Summary</h4>
+                <table class="table table-condensed">
+                    <t t-set="total_sale_revenue_hc" t-value="get_total_revenue()"/>
+                    <t t-set="total_vat_hc" t-value="get_total_vat()"/>
+                    <t t-set="total_discount_hc" t-value="get_total_discount()"/>
+                    <t t-set="total_qty_hc" t-value="get_total_item_qty()"/>
+                    <tr>
+                        <td>
+                            <strong>VAT 10.00%</strong>
+                        </td>
+                        <td class="text-right">
+                            <strong t-esc="formatLang(total_vat_hc, currency_obj = res_company.currency_id)"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sales total(Revenue)</strong></td>
+                        <td class="text-right">
+                            <strong t-esc="formatLang(total_sale_revenue_hc, dp='Sale Price', currency_obj=res_company.currency_id)"/>
+                        </td>
+                     </tr>
+
+                        <tr>
+                            <td><strong>Total discount</strong></td>
+                            <td class="text-right">
+                                <strong t-esc="formatLang(total_discount_hc, dp='Sale Price', currency_obj=res_company.currency_id)"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total Quantity</strong></td>
+                            <td class="text-right">
+                                <strong t-esc="total_qty_hc"/>
+                            </td>
+                        </tr>
+                </table>
+                </t>
+
+                <t t-set="is_activity_var" t-value="is_activity(data['form'])"/>
+                <t t-if="is_activity_var">
+                    <h2>Hotel Card Details</h2>
+                    <table class="table table-condensed">
+                        <thead>
+                            <th>
+                                <strong>Order Date</strong>
+                            </th>
+                            <th>
+                                <strong>Order Reference</strong>
+                            </th>
+                            <th class="text-center">
+                                <strong>Subtotal</strong>
+                            </th>
+                            <th>
+                                <strong>VAT</strong>
+                            </th>
+                            <th class="text-center">
+                                <strong>Total</strong>
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="get_daily_activity_order(data['form'])" t-as="line_ids">
+                                <td>
+                                    <span t-esc="formatLang(line_ids['order_date'], date_time=True)"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line_ids['order_no']"/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-esc="formatLang(line_ids['subtotal'], dp='Sale Price', currency_obj=res_company.currency_id)"/>
+                                </td>
+                                 <td>
+                                    <span t-esc="formatLang(line_ids['vat'], dp='Sale Price', currency_obj=res_company.currency_id)"/>
+                                </td>
+
+                                <td class="text-center">
+                                    <span t-esc="formatLang(line_ids['total'], dp='Sale Price', currency_obj=res_company.currency_id)"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                    <table class="table table-condensed">
+                        <thead>
+                            <th>
+                                <strong>Category</strong>
+                            </th>
+                            <th>
+                                <strong>Product Quantity</strong>
+                            </th>
+                            <th>
+                                <strong>Total Discount</strong>
+                            </th>
+                            <th class="text-right">
+                                <strong>Total Price</strong>
+                            </th>
+                        </thead>
+                        <tbody>
+                            <t t-set="res" t-value="get_daily_activity_details(data['form'])"/>
+                            <tr t-foreach="res" t-as="line_ids">
+                                <td>
+                                    <span t-esc="line_ids"/>
+                                </td>
+                                <td>
+                                    <span t-esc="res[line_ids][0]"/>
+                                </td>
+                                <td>
+                                    <span t-esc="formatLang(res[line_ids][1], currency_obj=res_company.currency_id)"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="formatLang(res[line_ids][2], currency_obj=res_company.currency_id)"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4>Hotel Card Summary</h4>
+
+                    <table class="table table-condensed">
+                        <t t-set="activity_total_sale_revenue_hc" t-value="get_activity_total_revenue()"/>
+                        <t t-set="activity_total_vat_hc" t-value="get_activity_vat()"/>
+                        <t t-set="activity_total_discount_hc" t-value="get_activity_total_discount()"/>
+                        <t t-set="activity_total_qty_hc" t-value="get_activity_total_item_qty()"/>
+                        <tr>
+                            <td>
+                                <strong>VAT 10.00%</strong>
+                            </td>
+                            <td class="text-right">
+                                <strong t-esc="formatLang(activity_total_vat_hc, currency_obj = res_company.currency_id)"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Sales total(Revenue)</strong>
+                            </td>
+                            <td class="text-right">
+                                <strong t-esc="formatLang(activity_total_sale_revenue_hc, dp='Sale Price', currency_obj=res_company.currency_id)"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Total discount</strong>
+                            </td>
+                            <td class="text-right">
+                                <strong t-esc="formatLang(activity_total_discount_hc, dp='Sale Price', currency_obj=res_company.currency_id)"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Total Quantity</strong>
+                            </td>
+                            <td class="text-right">
+                                <strong t-esc="activity_total_qty_hc"/>
+                            </td>
+                        </tr>
+                    </table>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</openerp>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_analytic_entries_report_tree_svt1" model="ir.ui.view">
+            <field name="name">analytic.entries.report.tree_svt1</field>
+            <field name="model">analytic.entries.report</field>
+            <field name="inherit_id" ref="account.view_analytic_entries_report_search"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <field name="parent_id" invisible="1"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

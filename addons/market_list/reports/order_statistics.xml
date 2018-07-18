@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <record id="view_report_pos_order_graph" model="ir.ui.view">
+            <field name="name">kr.purchase.order.line.graph</field>
+            <field name="model">kr.purchase.order.line</field>
+            <field name="arch" type="xml">
+                <graph string="Kirirom Purchase Analysis" type="pivot">
+                    <field name="product_id" type="row"/>
+                    <field name="date_order" type="col"/>
+                    <field name="product_qty" type="measure"/>
+                    <field name="price_per_unit" type="measure"/>
+                    <field name="sub_total" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+    <record id="view_report_kirirom_purchase_search" model="ir.ui.view">
+            <field name="name">kr.purchase.order.line.search</field>
+            <field name="model">kr.purchase.order.line</field>
+            <field name="arch" type="xml">
+                <search string="Purchase Analysis">
+                    <field name="date_order"/>
+                    <filter string="Draft" domain="[('state','=',('draft'))]"/>
+                    <filter string="Progress" domain="[('state','=',('progress'))]"/>
+                    <filter string="Validate" domain="[('state','=',('validate'))]" name="validate"/>
+
+                    <!--<group expand="1" string="Group By">
+                        <filter string="Salesperson" name="User" context="{'group_by':'user_id'}"/>
+                        <filter string="Product Category" context="{'group_by':'product_categ_id'}"/>
+                        <filter string="Product" context="{'group_by':'product_id'}"/>
+                        <separator/>
+                        <filter string="Order Month" context="{'group_by':'date:month'}" help="Month of order date"/>
+                    </group>-->
+                </search>
+            </field>
+        </record>
+
+    <record model="ir.actions.act_window" id="order_report_statistic_action">
+            <field name="name">Report Statistic</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kr.purchase.order.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph</field>
+            <field name="context">{"search_default_validate": 1}</field>
+            <field name="search_view_id" ref="view_report_kirirom_purchase_search"/>
+    </record>
+    <menuitem
+                id="order_report_statistic_menu_parent"
+                name="Reporting"
+                parent="parent_menu_market_list_request"/>
+    <menuitem
+            id="order_report_statistic_menu"
+            parent="order_report_statistic_menu_parent"
+            action="order_report_statistic_action"
+            />
+
+</data>
+</openerp>

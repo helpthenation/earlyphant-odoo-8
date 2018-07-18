@@ -1,0 +1,132 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        <record model="ir.module.category" id="module_market_list">
+            <field name="name">Market List</field>
+            <field name="description">Market List</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="group_market_list_requester" model="res.groups">
+            <field name="name">Requester</field>
+            <field name="category_id" ref="module_market_list"/>
+        </record>
+        <record id="group_market_list_request_manager" model="res.groups">
+            <field name="name">Request Manager</field>
+            <field name="implied_ids" eval="[(4, ref('group_market_list_requester'))]"/>
+            <field name="category_id" ref="module_market_list"/>
+        </record>
+        <record id="group_market_list_purchaser" model="res.groups">
+            <field name="name">Purchaser</field>
+            <field name="implied_ids" eval="[(4, ref('group_market_list_request_manager'))]"/>
+            <field name="category_id" ref="module_market_list"/>
+        </record>
+        <record id="group_market_list_officer" model="res.groups">
+            <field name="name">Officer</field>
+            <field name="implied_ids" eval="[(4, ref('group_market_list_purchaser'))]"/>
+            <field name="category_id" ref="module_market_list"/>
+        </record>
+        <!-- Request-related subtypes for messaging  / Chatter -->
+        <record id="a2a_request_to_approve" model="mail.message.subtype">
+            <field name="name">Purchase Request to be approved</field>
+            <field name="res_model">marketlist.general.a2a.request</field>
+            <field name="default" eval="True"/>
+            <field name="description">Purchase Request to be approved</field>
+        </record>
+
+        <record id="a2a_request_approved" model="mail.message.subtype">
+            <field name="name">Purchase Request approved</field>
+            <field name="res_model">marketlist.general.a2a.request</field>
+            <field name="default" eval="True"/>
+            <field name="description">Purchase Request approved</field>
+        </record>
+
+        <record id="a2a_request_rejected" model="mail.message.subtype">
+            <field name="name">Purchase Request rejected</field>
+            <field name="res_model">marketlist.general.a2a.request</field>
+            <field name="default" eval="True"/>
+            <field name="description">Purchase Request Rejected</field>
+        </record>
+        <record id="ml_request_to_approve" model="mail.message.subtype">
+            <field name="name">Purchase Request to be approved</field>
+            <field name="res_model">marketlist.request</field>
+            <field name="default" eval="True"/>
+            <field name="description">Purchase Request to be approved</field>
+        </record>
+
+        <record id="ml_request_approved" model="mail.message.subtype">
+            <field name="name">Purchase Request approved</field>
+            <field name="res_model">marketlist.request</field>
+            <field name="default" eval="True"/>
+            <field name="description">Purchase Request approved</field>
+        </record>
+
+        <record id="ml_request_rejected" model="mail.message.subtype">
+            <field name="name">Purchase Request rejected</field>
+            <field name="res_model">marketlist.request</field>
+            <field name="default" eval="True"/>
+            <field name="description">Purchase Request Rejected</field>
+        </record>
+
+        <record id="pvk_request_to_approve" model="mail.message.subtype">
+            <field name="name">Purchase Request to be approved</field>
+            <field name="res_model">marketlist.pvk.request</field>
+            <field name="default" eval="True"/>
+            <field name="description">Purchase Request to be approved</field>
+        </record>
+
+        <record id="pvk_request_approved" model="mail.message.subtype">
+            <field name="name">Purchase Request approved</field>
+            <field name="res_model">marketlist.pvk.request</field>
+            <field name="default" eval="True"/>
+            <field name="description">Purchase Request approved</field>
+        </record>
+
+        <record id="pvk_request_rejected" model="mail.message.subtype">
+            <field name="name">Purchase Request rejected</field>
+            <field name="res_model">marketlist.pvk.request</field>
+            <field name="default" eval="True"/>
+            <field name="description">Purchase Request Rejected</field>
+        </record>
+
+        <record id="vkg_request_to_approve" model="mail.message.subtype">
+            <field name="name">Purchase Request to be approved</field>
+            <field name="res_model">marketlist.general.request</field>
+            <field name="default" eval="True"/>
+            <field name="description">Purchase Request to be approved</field>
+        </record>
+
+        <record id="vkg_request_approved" model="mail.message.subtype">
+            <field name="name">Purchase Request approved</field>
+            <field name="res_model">marketlist.general.request</field>
+            <field name="default" eval="True"/>
+            <field name="description">Purchase Request approved</field>
+        </record>
+
+        <record id="vkg_request_rejected" model="mail.message.subtype">
+            <field name="name">Purchase Request rejected</field>
+            <field name="res_model">marketlist.general.request</field>
+            <field name="default" eval="True"/>
+            <field name="description">Purchase Request Rejected</field>
+        </record>
+
+        
+        <record id="po_request_to_validate" model="mail.message.subtype">
+            <field name="name">PO Request for validate</field>
+            <field name="res_model">kr.purchase.order</field>
+            <field name="default" eval="True"/>
+            <field name="description">Purchase Order Progress</field>
+        </record>
+        <record id="po_done" model="mail.message.subtype">
+            <field name="name">PO Double Validate</field>
+            <field name="res_model">kr.purchase.order</field>
+            <field name="default" eval="True"/>
+            <field name="description">Double Validate</field>
+        </record>
+
+        <record model="decimal.precision" id="decimal_precision_market_list">
+            <field name="name">KRPO</field>
+            <field name="digits">3</field>
+        </record>
+
+    </data>
+</openerp>

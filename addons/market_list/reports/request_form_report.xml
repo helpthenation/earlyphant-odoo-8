@@ -1,0 +1,1198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- ******************** Market List Purchase Request Report Day 1 ******************** -->
+        <template id="report_marketlist_day1_purchase_request_pdf">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                <t t-call="report.external_layout">
+                    <div class="page">
+                            <h4>
+                                <span><strong><center>Market List Request</center></strong></span>
+                            </h4>
+                    <table width="100%">
+                           <tr style="font-size:11px">
+                                <td width="65%" style="text-align:left;">
+                                    <strong>Request Reference : </strong><span t-field="o.name"/>
+                                </td>
+                                <td width="35%" style="text-align:left;">
+                                    <strong>Request Date : </strong><span t-field="o.date_start"/>
+                                </td>  
+                           </tr>
+                           <tr style="font-size:11px">
+                                <td width="65%" style="text-align:left;">
+                                    <strong>Analytic Acc : </strong><span t-field="o.analytic_account_id.name"/>
+                                </td>
+                                <td width="35%" style="text-align:left;">
+                                    <strong>Approve Date : </strong><span t-field="o.approve_date"/>
+                                </td>
+                           </tr>
+                           <tr style="font-size:11px">
+                                <td width="65%" style="text-align:left;">
+                                    <strong>Purchase For Date : </strong><span t-field="o.purchase_for_date_day1"/>
+                                </td>
+                           </tr>
+                    </table>
+                    
+                    <table class="table table-striped">
+                        <thead>
+                            <tr style="font-size:9px">
+                                <th style="border: 1px solid black; width:10px; height: 20px;">
+                                	<strong>No.</strong>
+                                </th>
+                                <th style="border: 1px solid black">
+                                	<strong>Product</strong>
+                                </th>
+                                <th style="border: 1px solid black">
+                                	<strong>Quantity</strong>
+                                </th>
+                                <th style="border: 1px solid black">
+                                	<strong>Unit</strong>
+                                </th>
+                                <th style="border: 1px solid black">
+                                	<strong>Exp. Price</strong>
+                                </th>
+                                <th style="border: 1px solid black">
+                                	<strong>Exp. Sub Total Price</strong>
+                                </th>
+                                <th style="border: 1px solid black">
+                                	<strong>Description</strong>
+                                </th>
+                            </tr>
+                        </thead>
+                            
+                        <tbody >
+							<tr style="border:1px solid black;height: 20px;">
+								<td style="border:1px solid black; font-size:11px;text-align:center" colspan="7">
+									<strong>Breakfast</strong>
+								</td>
+							</tr>
+                            <tr t-foreach="o.line_ids_day1_breakfast" t-as="rec" style="page-break-inside: avoid; font-size:9px">
+                               <td style="border:1px solid black;width:10px;height: 20px;">
+                                	<span t-esc="rec_index +1"/>
+                                </td>
+                               <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_qty"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_uom_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.price_per_unit_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.total_price_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                    <span t-esc="rec.name"/>
+                                </td>
+                            </tr>
+                            <!-- <tr style="text-align:center; border:1px solid black; page-break-inside: avoid;font-size:9px">
+	                            <td colspan="5" style="text-align:right; border:1px solid black;">
+	                                Expected Total (USD):
+	                            </td>
+	                            <td style="border:1px solid black;">
+	                                <strong><span t-esc="o.amount_total_est_breakfast_day1"/></strong>
+	                            </td>
+	                            <td style="border:1px solid black;">
+	                            	<br/>
+	                            </td>
+	                        </tr> -->
+	                        <tr style="border:1px solid black;height: 20px;">
+		                        <td style="border:1px solid black; font-size:11px;text-align:center" colspan="7">
+		                        	<strong>Lunch</strong>
+		                      	</td>
+	                       	</tr>
+                            <tr t-foreach="o.line_ids_day1_lunch" t-as="rec" style="font-size:9px; border:1px solid black; page-break-inside: avoid;">
+                                 <td style="border:1px solid black;width:10px">
+                                	<span t-esc="rec_index +1"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_qty"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_uom_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.price_per_unit_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.total_price_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                    <span t-esc="rec.name"/>
+                                </td>
+                            </tr>
+                           	<!-- <tr style="text-align:center; page-break-inside: avoid;font-size:9px">
+	                            <td colspan="5" style="text-align:right; border:1px solid black;">
+	                                Expected Total (USD):
+	                            </td>
+	                            <td style="border:1px solid black;">
+	                                <strong><span t-esc="o.amount_total_est_lunch_day1"/></strong>
+	                            </td>
+	                            <td style="border:1px solid black;">
+	                            	<br/>
+	                            </td>
+	                        </tr> -->
+							<tr style="border:1px solid black;height: 20px;">
+                        		<td style="border:1px solid black; font-size:11px;text-align:center" colspan="7">
+                        			<strong>Dinner</strong>
+                      			</td>
+                      		</tr>
+                            <tr t-foreach="o.line_ids_day1_dinner" t-as="rec" style="font-size:9px; border:1px solid black; page-break-inside: avoid;">
+                               <td style="border:1px solid black;width:10px">
+                                	<span t-esc="rec_index +1"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_qty"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_uom_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.price_per_unit_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.total_price_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                    <span t-esc="rec.name"/>
+                                </td>
+                            </tr>
+	                        <!-- <tr style="text-align:center; page-break-inside: avoid; font-size:9px">
+	                            <td colspan="5" style="text-align:right; border:1px solid black;">
+	                                Expected Total (USD):
+	                            </td>
+	                            <td style="border:1px solid black;">
+	                                <strong><span t-esc="o.amount_total_est_dinner_day1"/></strong>
+	                            </td>
+	                            <td style="border:1px solid black;">
+	                            	<br/>
+	                            </td>
+	                        </tr> -->
+	                        <tr style="border:1px solid black;height: 20px;">
+	                        	<td style="border:1px solid black; font-size:11px;text-align:center" colspan="7">
+	                        		<strong>Dry Store</strong>
+	                      		</td>
+	                      	</tr>
+                            <tr t-foreach="o.dry_store_line_day1" t-as="rec" style="font-size:9px; border:1px solid black; page-break-inside: avoid;">
+								<td style="border:1px solid black;width:10px">
+                                	<span t-esc="rec_index +1"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_qty"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_uom_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.price_per_unit_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.total_price_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                    <span t-esc="rec.name"/>
+                                </td>
+                            </tr>
+							<!-- <tr style="text-align:center; page-break-inside: avoid;font-size:9px">
+	                            <td colspan="5" style="text-align:right; border:1px solid black;">
+	                                Expected Total (USD):
+	                            </td>
+	                            <td style="border:1px solid black;">
+	                                <strong><span t-esc="o.amount_total_est_dry_store_day1"/></strong>
+	                            </td>
+	                            <td style="border:1px solid black;">
+	                            	<br/>
+	                            </td>
+	                        </tr> -->
+	                        <tr style="text-align:center; page-break-inside: avoid; font-size:10px">
+	                            <td colspan="6" style="text-align:right; border:1px solid black;">
+	                                <strong>Expected Grand Total (USD) : </strong>
+	                            </td>
+	                            <td style="border:1px solid black;">
+	                                <strong><span t-esc="o.grand_total_est_day1"/></strong>
+	                            </td>
+	                        </tr>
+	                        <tr style="text-align:center; page-break-inside: avoid; font-size:10px">
+	                            <td colspan="6" style="text-align:right; border:1px solid black;">
+	                                <strong>Budget/Pax (USD): </strong>
+	                            </td>
+	                            <td style="border:1px solid black;">
+	                                <strong><span t-esc="'%.2f'%o.budget_per_pax_day1" /></strong>
+	                            </td>
+	                        </tr>
+                        </tbody>
+                    </table>
+                    <table width="50%">
+                            <tr style="page-break-inside: avoid; font-size:10px">
+                                <td width="33%">1. Breakfast Exp. :</td>
+                                <td width="10%">
+                                	<span t-esc="o.breakfast_est_day1"/>
+                                </td>
+                                <td>Pax</td>
+                            </tr>
+                            <tr style="page-break-inside: avoid;font-size:10px">
+                                <td width="33%">2. Lunch Exp. :</td>
+                                <td width="10%">
+                                	<span t-esc="o.lunch_est_day1"/>
+                                </td>
+                                <td>Pax</td>
+                            </tr>
+                            <tr style="page-break-inside: avoid;font-size:10px">
+                                <td width="33%">3. Dinner Exp. :</td>
+                                <td width="10%">
+                                	<span t-esc="o.dinner_est_day1"/>
+                                </td>
+                                <td>Pax</td>
+                            </tr>
+                            <tr width="30%" style="page-break-inside: avoid;font-size:9px">
+                                <td><strong> Total :</strong></td>
+                                <td width="10%">
+                                	<span t-esc="o.total_est_day1"/>
+                                </td>
+                                <td>Pax</td>
+                            </tr>
+                    </table>
+                    <table width="100%" class="table table-striped">
+                        <thead>
+                            <tr style="page-break-inside: avoid;"><h5>មុខម្ហូប / Food Menu</h5></tr>
+                            <tr style="page-break-inside: avoid; border: 1px solid black">
+                                <th width="33%" style="border: 1px solid black"><center><strong>Breakfast</strong></center></th>
+                                <th width="33%" style="border: 1px solid black"><center><strong>Lunch</strong></center></th>
+                                <th width="33%" style="border: 1px solid black"><center><strong>Dinner</strong></center></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="page-break-inside: avoid; font-size:11px;border: 1px solid black">
+                                <td style="border: 1px solid black">
+                                		<span t-esc="o.breakfast_day1"/>
+                                </td>
+                                <td style="border: 1px solid black">
+                                		<span t-esc="o.lunch_day1"/>
+                                </td>
+                                <td style="border: 1px solid black">
+                                		<span t-esc="o.dinner_day1"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table width="100%">
+                        <thead>
+                            <tr style="page-break-inside: avoid;font-size:10px;">
+                                <th width="25%"><center><strong>Requested By</strong></center></th>
+                                <th width="25%"><center><strong>Approved By</strong></center></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        	<tr style="page-break-inside: avoid;">
+                        		<td><br/></td>
+                        		<td><br/></td>
+                        	</tr>
+                        	<tr style="page-break-inside: avoid;">
+                        		<td><br/></td>
+                        		<td><br/></td>
+                        	</tr>
+                        	<tr style="page-break-inside: avoid;">
+                        		<td><br/></td>
+                        		<td><br/></td>
+                        	</tr>
+                            <tr style="page-break-inside: avoid; font-size:9px;">
+                                <td><center><span t-field="o.date_start"/></center></td>
+                                <td><center><span t-field="o.approve_date"/></center></td>
+                            </tr>
+                            <tr style="page-break-inside: avoid; font-size:9px;">
+                                <td><center><span t-field="o.requested_by"/></center></td>
+                                <td><center><span t-field="o.approve_by"/></center></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </t>
+                </t>
+            </t>
+        </template>
+
+        <!-- ******************** Market List Purchase Request Report Day 2 ******************** -->
+        <template id="report_marketlist_day2_purchase_request_pdf">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                <t t-call="report.external_layout">
+                    <div class="page">
+                            <h4>
+                                <span><strong><center>Market List Request</center></strong></span>
+                            </h4>
+                    <table width="100%">
+                           <tr style="font-size:11px">
+                                <td width="65%" style="text-align:left;">
+                                    <strong>Request Reference : </strong><span t-field="o.name"/>
+                                </td>
+                                <td width="35%" style="text-align:left;">
+                                    <strong>Request Date : </strong><span t-field="o.date_start"/>
+                                </td>  
+                           </tr>
+                           <tr style="font-size:11px">
+                                <td width="65%" style="text-align:left;">
+                                    <strong>Analytic Acc : </strong><span t-field="o.analytic_account_id.name"/>
+                                </td>
+                                <td width="35%" style="text-align:left;">
+                                    <strong>Approve Date : </strong><span t-field="o.approve_date"/>
+                                </td>
+                           </tr>
+                           <tr style="font-size:11px">
+                                <td width="65%" style="text-align:left;">
+                                    <strong>Purchase For Date : </strong><span t-field="o.purchase_for_date_day2"/>
+                                </td>
+                           </tr>
+                    </table>
+                    
+                    <table class="table table-striped">
+                        <thead>
+                            <tr style="font-size:9px">
+                                <th style="border: 1px solid black; width:10px; height: 20px;">
+                                	<strong>No.</strong>
+                                </th>
+                                <th style="border: 1px solid black">
+                                	<strong>Product</strong>
+                                </th>
+                                <th style="border: 1px solid black">
+                                	<strong>Quantity</strong>
+                                </th>
+                                <th style="border: 1px solid black">
+                                	<strong>Unit</strong>
+                                </th>
+                                <th style="border: 1px solid black">
+                                	<strong>Exp. Price</strong>
+                                </th>
+                                <th style="border: 1px solid black">
+                                	<strong>Exp. Sub Total Price</strong>
+                                </th>
+                                <th style="border: 1px solid black">
+                                	<strong>Description</strong>
+                                </th>
+                            </tr>
+                        </thead>
+                            
+                        <tbody >
+							<tr style="border:1px solid black;height: 20px;">
+								<td style="border:1px solid black; font-size:11px;text-align:center" colspan="7">
+									<strong>Breakfast</strong>
+								</td>
+							</tr>
+                            <tr t-foreach="o.line_ids_day2_breakfast" t-as="rec" style="page-break-inside: avoid;font-size:9px">
+                               <td style="border:1px solid black;width:10px;height: 20px;">
+                                	<span t-esc="rec_index +1"/>
+                                </td>
+                               <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_qty"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_uom_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.price_per_unit_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.total_price_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                    <span t-esc="rec.name"/>
+                                </td>
+                            </tr>
+                            <!-- <tr style="text-align:center; border:1px solid black; page-break-inside: avoid;font-size:9px">
+	                            <td colspan="5" style="text-align:right; border:1px solid black;">
+	                                Expected Total (USD):
+	                            </td>
+	                            <td style="border:1px solid black;">
+	                                <strong><span t-esc="o.amount_total_est_breakfast_day2"/></strong>
+	                            </td>
+	                            <td style="border:1px solid black;">
+	                            	<br/>
+	                            </td>
+	                        </tr> -->
+	                        <tr style="border:1px solid black;height: 20px;">
+		                        <td style="border:1px solid black; font-size:11px;text-align:center" colspan="7">
+		                        	<strong>Lunch</strong>
+		                      	</td>
+	                       	</tr>
+                            <tr t-foreach="o.line_ids_day2_lunch" t-as="rec" style="font-size:9px; border:1px solid black; page-break-inside: avoid;">
+                                 <td style="border:1px solid black;width:10px">
+                                	<span t-esc="rec_index +1"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_qty"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_uom_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.price_per_unit_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.total_price_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                    <span t-esc="rec.name"/>
+                                </td>
+                            </tr>
+	                        <!-- <tr style="text-align:center; page-break-inside: avoid;font-size:9px">
+	                            <td colspan="5" style="text-align:right; border:1px solid black;">
+	                                Expected Total (USD):
+	                            </td>
+	                            <td style="border:1px solid black;">
+	                                <strong><span t-esc="o.amount_total_est_lunch_day2"/></strong>
+	                            </td>
+	                            <td style="border:1px solid black;">
+	                            	<br/>
+	                            </td>
+	                        </tr> -->
+							<tr style="border:1px solid black;height: 20px;">
+	                        	<td style="border:1px solid black; font-size:11px;text-align:center" colspan="7">
+	                        		<strong>Dinner</strong>
+	                      		</td>
+                      		</tr>
+                            <tr t-foreach="o.line_ids_day2_dinner" t-as="rec" style="font-size:9px; border:1px solid black; page-break-inside: avoid;">
+                               <td style="border:1px solid black;width:10px">
+                                	<span t-esc="rec_index +1"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_qty"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_uom_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.price_per_unit_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.total_price_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                    <span t-esc="rec.name"/>
+                                </td>
+                            </tr>
+	                        <!-- <tr style="text-align:center; page-break-inside: avoid; font-size:9px">
+	                            <td colspan="5" style="text-align:right; border:1px solid black;">
+	                                Expected Total (USD):
+	                            </td>
+	                            <td style="border:1px solid black;">
+	                                <strong><span t-esc="o.amount_total_est_dinner_day2"/></strong>
+	                            </td>
+	                            <td style="border:1px solid black;">
+	                            	<br/>
+	                            </td>
+	                        </tr> -->
+                        	<tr style="border:1px solid black;height: 20px;">
+                        		<td style="border:1px solid black; font-size:11px;text-align:center" colspan="7">
+                        			<strong>Dry Store</strong>
+                      			</td>
+                      		</tr>
+                            <tr t-foreach="o.dry_store_line_day2" t-as="rec" style="font-size:9px; border:1px solid black; page-break-inside: avoid;">
+								<td style="border:1px solid black;width:10px">
+                                	<span t-esc="rec_index +1"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_qty"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_uom_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.price_per_unit_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.total_price_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                    <span t-esc="rec.name"/>
+                                </td>
+                            </tr>
+							<!-- <tr style="text-align:center; page-break-inside: avoid;font-size:9px">
+	                            <td colspan="5" style="text-align:right; border:1px solid black;">
+	                                Expected Total (USD):
+	                            </td>
+	                            <td style="border:1px solid black;">
+	                                <strong><span t-esc="o.amount_total_est_dry_store_day2"/></strong>
+	                            </td>
+	                            <td style="border:1px solid black;">
+	                            	<br/>
+	                            </td>
+	                        </tr> -->
+	                        <tr style="text-align:center; page-break-inside: avoid; font-size:10px">
+	                            <td colspan="6" style="text-align:right; border:1px solid black;">
+	                                <strong>Expected Grand Total (USD) : </strong>
+	                            </td>
+	                            <td style="border:1px solid black;">
+	                                <strong><span t-esc="o.grand_total_est_day2"/></strong>
+	                            </td>
+	                        </tr>
+	                        <tr style="text-align:center; page-break-inside: avoid; font-size:10px">
+	                            <td colspan="6" style="text-align:right; border:1px solid black;">
+	                                <strong>Budget/Pax (USD): </strong>
+	                            </td>
+	                            <td style="border:1px solid black;">
+	                                <strong><span t-esc="'%.2f'%o.budget_per_pax_day2" /></strong>
+	                            </td>
+	                        </tr>
+                        </tbody>
+                    </table>
+                    <table width="50%">
+                            <tr style="page-break-inside: avoid; font-size:10px">
+                                <td width="33%">1. Breakfast Exp. :</td>
+                                <td width="10%">
+                                	<span t-esc="o.breakfast_est_day2"/>
+                                </td>
+                                <td>Pax</td>
+                            </tr>
+                            <tr style="page-break-inside: avoid;font-size:10px">
+                                <td width="33%">2. Lunch Exp. :</td>
+                                <td width="10%">
+                                	<span t-esc="o.lunch_est_day2"/>
+                                </td>
+                                <td>Pax</td>
+                            </tr>
+                            <tr style="page-break-inside: avoid;font-size:10px">
+                                <td width="33%">3. Dinner Exp. :</td>
+                                <td width="10%">
+                                	<span t-esc="o.dinner_est_day2"/>
+                                </td>
+                                <td>Pax</td>
+                            </tr>
+                            <tr width="30%" style="page-break-inside: avoid;font-size:9px">
+                                <td><strong> Total :</strong></td>
+                                <td width="10%">
+                                	<span t-esc="o.total_est_day2"/>
+                                </td>
+                                <td>Pax</td>
+                            </tr>
+                    </table>
+                    <table width="100%" class="table table-striped">
+                        <thead>
+                            <tr style="page-break-inside: avoid;"><h5>មុខម្ហូប / Food Menu</h5></tr>
+                            <tr style="page-break-inside: avoid; border: 1px solid black">
+                                <th width="33%" style="border: 1px solid black"><center><strong>Breakfast</strong></center></th>
+                                <th width="33%" style="border: 1px solid black"><center><strong>Lunch</strong></center></th>
+                                <th width="33%" style="border: 1px solid black"><center><strong>Dinner</strong></center></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="page-break-inside: avoid; font-size:11px;border: 1px solid black">
+                                <td style="border: 1px solid black">
+                                		<span t-esc="o.breakfast_day2"/>
+                                </td>
+                                <td style="border: 1px solid black">
+                                		<span t-esc="o.lunch_day2"/>
+                                </td>
+                                <td style="border: 1px solid black">
+                                		<span t-esc="o.dinner_day2"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row mt32">
+                        <table width="100%">
+                            <thead>
+                                <tr style="page-break-inside: avoid;font-size:10px">
+                                    <th width="25%"><center><strong>Requested By</strong></center></th>
+                                    <th width="25%"><center><strong>Approved By</strong></center></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            	<tr style=" page-break-inside: avoid;">
+                            		<td><br/></td>
+                            		<td><br/></td>
+                            	</tr>
+                            	<tr style=" page-break-inside: avoid;">
+                            		<td><br/></td>
+                            		<td><br/></td>
+                            	</tr>
+                            	<tr style=" page-break-inside: avoid;">
+                            		<td><br/></td>
+                            		<td><br/></td>
+                            	</tr>
+                                <tr style="page-break-inside: avoid; font-size:9px;">
+                                    <td><center><span t-field="o.date_start"/></center></td>
+                                    <td><center><span t-field="o.approve_date"/></center></td>
+                                </tr>
+                                <tr style="page-break-inside: avoid; font-size:9px;">
+                                    <td><center><span t-field="o.requested_by"/></center></td>
+                                    <td><center><span t-field="o.approve_by"/></center></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </t>
+                </t>
+            </t>
+    	</template>
+
+
+        <!-- ******************** Market List General Purchase Request Report ******************** -->
+        <template id="report_general_purchase_request_pdf">
+            <t t-call="report.html_container">
+                 <t t-foreach="docs" t-as="o">
+                <t t-call="report.external_layout">
+                    <div class="page">
+                        <h3>
+                            <span><strong><center>vKirirom Purchase Request</center></strong></span>
+                        </h3>
+
+                    <table width="100%">
+                           <tr style="font-size:11px">
+                                <td width="65%" style="text-align:left;">
+                                    <strong>Request Reference : </strong><span t-field="o.name"/>
+                                </td>
+                                <td width="35%" style="text-align:left;">
+                                    <strong>Request Date : </strong><span t-field="o.date_start"/>
+                                </td>  
+                           </tr>
+                           <tr style="font-size:11px">
+                                <td width="65%" style="text-align:left;">
+                                    <strong>Analytic Acc : </strong><span t-field="o.analytic_account_id"/>
+                                </td>
+                                <td width="35%" style="text-align:left;">
+                                    <strong>Approve Date : </strong><span t-field="o.approve_date"/>
+                                </td>
+                           </tr>
+                    </table>
+                    <br/>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr style="font-size:9px">
+								<th style="border:1px solid black;font-size:11px, width:10px; height: 20px;">
+                                	<strong>No</strong>
+                                </th>
+                                <th style="border:1px solid black;">
+                                	<strong>Product</strong>
+                                </th>
+                                <th style="border:1px solid black;">
+                                	<strong>Quantity</strong>
+                                </th>
+                                <th style="border:1px solid black;">
+                                	<strong>Unit</strong>
+                                </th>
+                                <th style="border:1px solid black;">
+                                	<strong>Exp. Price</strong>
+                                </th>
+                                <th style="border:1px solid black;">
+                                	<strong>Exp. Sub Total Price</strong>
+                                </th>
+                                <th style="border:1px solid black;">
+                                	<strong>Description</strong>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="font-size:9px; page-break-inside:avoid;"  t-foreach="o.product_line_ids" t-as="rec">
+								<td style="border:1px solid black; width:10px;height: 20px;">
+                                	<span t-esc="rec_index+1"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_qty"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_uom_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.price_per_unit_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.total_price_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                    <span t-esc="rec.name"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tr style="text-align:center; page-break-inside: avoid; font-size:10px;">
+                            <td style="border:1px solid black; text-align:right;" colspan="5">
+                                Exp. Total:
+                            </td>
+                            <td style="border:1px solid black;">
+                                <strong><span t-esc="o.amount_total_est"/></strong>
+                            </td>
+                            <td style="border:1px solid black;">
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="100%">
+                        <thead>
+                            <tr style="page-break-inside: avoid; font-size:10px;">
+                                <th width="25%"><center><strong>Requested By</strong></center></th>
+                                <th width="25%"><center><strong>Approved By</strong></center></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="page-break-inside: avoid;">
+                                <td><br/></td>
+                                <td><br/></td>
+                            </tr>
+                            <tr style="page-break-inside: avoid;">
+                                <td><br/></td>
+                                <td><br/></td>
+                            </tr>
+                            <tr style="page-break-inside: avoid;">
+                                <td><br/></td>
+                                <td><br/></td>
+                            </tr>
+                            <tr style="page-break-inside: avoid; font-size:9px;">
+                                <td><center><span t-field="o.date_start"/></center></td>
+                                <td><center><span t-field="o.approve_date"/></center></td>
+                            </tr>
+                            <tr style="page-break-inside: avoid; font-size:9px;">
+                                <td><center><span t-field="o.requested_by"/></center></td>
+                                <td><center><span t-field="o.approve_by"/></center></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </t>
+
+
+                </t>
+            </t>
+        </template>
+
+
+        <!-- ******************** Market List A2A General Purchase Request Report ******************** -->
+        <template id="report_general_purchase_request_a2a_pdf">
+            <t t-call="report.html_container">
+                 <t t-foreach="docs" t-as="o">
+                <t t-call="report.external_layout">
+                    <div class="page">
+                        <h3>
+                            <span><strong><center>General A2A Request</center></strong></span>
+                        </h3>
+                    <table width="100%">
+                           <tr style="font-size:11px">
+                                <td width="65%" style="text-align:left;">
+                                    <strong>Request Reference : </strong><span t-field="o.name"/>
+                                </td>
+                                <td width="35%" style="text-align:left;">
+                                    <strong>Request Date : </strong><span t-field="o.date_start"/>
+                                </td>  
+                           </tr>
+                           <tr style="font-size:11px">
+                                <td width="65%" style="text-align:left;">
+                                    <strong>Analytic Acc : </strong><span t-field="o.analytic_account_id"/>
+                                </td>
+                                <td width="35%" style="text-align:left;">
+                                    <strong>Approve Date : </strong><span t-field="o.approve_date"/>
+                                </td>
+                           </tr>
+                    </table>
+                    <br/>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr style="font-size:9px;">
+								<th style="border:1px solid black;font-size:11px; width:10px;height: 20px;">
+                                    <strong>No.</strong>
+                                </th>
+                                <th style=" border:1px solid black;">
+                                    <strong>Product</strong>
+                                </th>
+                                <th style=" border:1px solid black;">
+                                    <strong>Quantity</strong>
+                                </th>
+                                <th style="text-align:center; border:1px solid black;">
+                                    <strong>Unit</strong>
+                                </th>
+                                <th style=" border:1px solid black;">
+                                    <strong>Exp. Price</strong>
+                                </th>
+                                <th style=" border:1px solid black;">
+                                    <strong>Exp. Sub Total Price</strong>
+                                </th>
+                                <th style="border:1px solid black;">
+                                    <strong>Description</strong>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <tr style="font-size:9px; page-break-inside: avoid;" t-foreach="o.product_line_a2a_ids" t-as="rec">
+								<td style="border:1px solid black; width:10px;height: 20px;">
+                                    <span t-esc="rec_index+1"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                    <span t-esc="rec.product_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                    <span t-esc="rec.product_qty"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                    <span t-esc="rec.product_uom_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                    <span t-esc="rec.price_per_unit_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                    <span t-esc="rec.total_price_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                    <span t-esc="rec.name"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tr style="text-align:center; page-break-inside: avoid; font-size:10px;">
+                            <td style="border:1px solid black; text-align:right;" colspan="5">
+                                Exp. Total:
+                            </td>
+                            <td style="border:1px solid black;">
+                                <strong><span t-esc="o.amount_total_est"/></strong>
+                            </td>
+                            <td style="border:1px solid black;">
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="100%">
+                        <thead>
+                            <tr style="page-break-inside: avoid; font-size:10px;">
+                                <th width="25%"><center><strong>Requested By</strong></center></th>
+                                <th width="25%"><center><strong>Approved By</strong></center></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="page-break-inside: avoid;">
+                                <td><br/></td>
+                                <td><br/></td>
+                            </tr>
+                            <tr style="page-break-inside: avoid;">
+                                <td><br/></td>
+                                <td><br/></td>
+                            </tr>
+                            <tr style="page-break-inside: avoid;">
+                                <td><br/></td>
+                                <td><br/></td>
+                            </tr>
+                            <tr style="page-break-inside: avoid; font-size:9px;">
+                                <td><center><span t-field="o.date_start"/></center></td>
+                                <td><center><span t-field="o.approve_date"/></center></td>
+                            </tr>
+                            <tr style="page-break-inside: avoid; font-size:9px;">
+                                <td><center><span t-field="o.requested_by"/></center></td>
+                                <td><center><span t-field="o.approve_by"/></center></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </t>
+
+
+                </t>
+            </t>
+        </template>
+
+
+        <!-- ******************** Market List Pine View Kitchen Purchase Request Report ******************** -->
+        <template id="report_pvk_purchase_request_pdf">
+            <t t-call ="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                <t t-call="report.external_layout">
+                    <div class="page">
+                    <t t-name="report.external_layout_header">
+                        <div class="header">
+                            <div class="row zero_min_height">
+                                <div class="col-xs-12">
+                                    <div style="border-bottom: 1px solid black;"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                        <div class="page">
+                            <h3>
+                                <span><strong><center>Pine View Kitchen Request</center></strong></span>
+                            </h3>
+                        </div>
+
+                    <table width="100%">
+                       <tr style="font-size:11px">
+                            <td width="65%" style="text-align:left;">
+                                <strong>Request Reference : </strong><span t-field="o.name"/>
+                            </td>
+                            <td width="35%" style="text-align:left;">
+                                <strong>Request Date : </strong><span t-field="o.date_start"/>
+                            </td>  
+                       </tr>
+                       <tr style="font-size:11px">
+                            <td width="65%" style="text-align:left;">
+                                <strong>Analytic Acc : </strong><span t-field="o.analytic_account_id"/>
+                            </td>
+                            <td width="35%" style="text-align:left;">
+                                <strong>Approve Date : </strong><span t-field="o.approve_date"/>
+                            </td>
+                       </tr>
+                    </table>
+                    <br/>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr style="font-size:9px">
+                            	<th style="border:1px solid black;font-size:11px; width:10px; height: 20px;">
+                                    <strong>No.</strong>
+                                </th>
+                                <th style="border:1px solid black;">
+                                	<strong>Product</strong>
+                                </th>
+                                <th style="border:1px solid black;">
+                                	<strong>Quantity</strong>
+                                </th>
+                                <th style="border:1px solid black;">
+                                	<strong>Unit</strong>
+                                </th>
+                                <th style="border:1px solid black;">
+                                	<strong>Exp. Price</strong>
+                                </th>
+                                <th style="border:1px solid black;">
+                                	<strong>Exp. Sub Total Price</strong>
+                                </th>
+                                <th style="border:1px solid black;">
+                                	<strong>Description</strong>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        	<tr style="border:1px solid black;height: 20px; page-break-inside: avoid;">
+								<td style="border:1px solid black; font-size:11px;text-align:center" colspan="7">
+									<strong>Vegetable &amp; Herb</strong>
+								</td>
+							</tr>
+                            <tr style="font-size:9px; page-break-inside: avoid;" t-foreach="o.veg_herb_line_ids" t-as="rec">
+                            	<td style="border:1px solid black; width:10px;height: 20px;">
+                                    <span t-esc="rec_index+1"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_qty"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_uom_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.price_per_unit_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.total_price_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                    <span t-esc="rec.name"/>
+                                </td>
+                            </tr>
+	                        <tr style="border:1px solid black;height: 20px; page-break-inside: avoid;">
+								<td style="border:1px solid black; font-size:11px;text-align:center" colspan="7">
+									<strong>Fruit</strong>
+								</td>
+							</tr>
+                            <tr style="font-size:9px; page-break-inside: avoid;" t-foreach="o.fruit_line_ids" t-as="rec">
+                            	<td style="border:1px solid black; width:10px;height: 20px;">
+                                    <span t-esc="rec_index+1"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_qty"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_uom_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.price_per_unit_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.total_price_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                    <span t-esc="rec.name"/>
+                                </td>
+                            </tr>
+	                        <tr style="border:1px solid black;height: 20px; page-break-inside: avoid;">
+								<td style="border:1px solid black; font-size:11px;text-align:center" colspan="7">
+									<strong>Poultry</strong>
+								</td>
+							</tr>
+                            <tr style="font-size:9px; page-break-inside: avoid;" t-foreach="o.poultry_line_ids" t-as="rec">
+                            	<td style="border:1px solid black; width:10px;height: 20px;">
+                                    <span t-esc="rec_index+1"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_qty"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_uom_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.price_per_unit_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.total_price_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                    <span t-esc="rec.name"/>
+                                </td>
+                            </tr>
+	                        <tr style="border:1px solid black;height: 20px; page-break-inside: avoid;">
+								<td style="border:1px solid black; font-size:11px;text-align:center" colspan="7">
+									<strong>Seafood &amp; Fish</strong>
+								</td>
+							</tr>
+                            <tr style="font-size:9px; page-break-inside: avoid;" t-foreach="o.sea_fish_line_ids" t-as="rec">
+                            	<td style="border:1px solid black; width:10px;height: 20px;">
+                                    <span t-esc="rec_index+1"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_qty"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_uom_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.price_per_unit_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.total_price_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                    <span t-esc="rec.name"/>
+                                </td>
+                            </tr>
+	                        <tr style="border:1px solid black;height: 20px; page-break-inside: avoid;">
+								<td style="border:1px solid black; font-size:11px;text-align:center" colspan="7">
+									<strong>Beef &amp; Pork</strong>
+								</td>
+							</tr>
+                            <tr style="font-size:9px; page-break-inside: avoid;" t-foreach="o.beef_pork_line_ids" t-as="rec">
+                            	<td style="border:1px solid black; width:10px;height: 20px;">
+                                    <span t-esc="rec_index+1"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_qty"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_uom_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.price_per_unit_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.total_price_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                    <span t-esc="rec.name"/>
+                                </td>
+                            </tr>
+	                    	<tr style="border:1px solid black;height: 20px; page-break-inside: avoid;">
+								<td style="border:1px solid black; font-size:11px;text-align:center" colspan="7">
+									<strong>Other</strong>
+								</td>
+							</tr>
+                            <tr style="font-size:9px; page-break-inside: avoid;" t-foreach="o.other_line_ids" t-as="rec">
+                            	<td style="border:1px solid black; width:10px;height: 20px;">
+                                    <span t-esc="rec_index+1"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_qty"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.product_uom_id.name"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.price_per_unit_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                	<span t-esc="rec.total_price_est"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                    <span t-esc="rec.name"/>
+                                </td>
+                            </tr>
+	                        <tr style="text-align:center; page-break-inside: avoid; font-size:10px;">
+	                            <td style="border:1px solid black; text-align:right;" colspan="5">
+	                                Exp. Total:
+	                            </td>
+	                            <td style="border:1px solid black;">
+	                                <strong><span t-esc="o.amount_total_est"/></strong>
+	                            </td>
+	                            <td style="border:1px solid black;">
+	                            </td>
+	                        </tr>
+                    	</tbody>
+                    </table>
+                    <table width="100%">
+                        <thead>
+                            <tr style="page-break-inside: avoid; font-size:10px;">
+                                <th width="25%" ><center><strong>Requested By</strong></center></th>
+                                <th width="25%" ><center><strong>Approved By</strong></center></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="page-break-inside: avoid;">
+                                <td><br/></td>
+                                <td><br/></td>
+                            </tr>
+                            <tr style="page-break-inside: avoid;">
+                                <td><br/></td>
+                                <td><br/></td>
+                            </tr>
+                            <tr style="page-break-inside: avoid;">
+                                <td><br/></td>
+                                <td><br/></td>
+                            </tr>
+                            <tr style="page-break-inside: avoid; font-size:9px;">
+                                <td><center><span t-field="o.date_start"/></center></td>
+                                <td><center><span t-field="o.approve_date"/></center></td>
+                            </tr>
+                            <tr style="page-break-inside: avoid; font-size:9px;">
+                                <td><center><span t-field="o.requested_by"/></center></td>
+                                <td><center><span t-field="o.approve_by"/></center></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</openerp>

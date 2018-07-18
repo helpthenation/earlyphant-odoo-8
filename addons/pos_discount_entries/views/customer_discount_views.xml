@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+        <!-- <record id="account.view_category_property_form_inherited" model="ir.ui.view">
+            <field name="name">product.category.property.form.inherit_2</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="account.view_category_property_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='property_account_expense_categ']" position="after">
+                    <field name="customer_discount_categ"/>
+                </xpath>
+            </field>
+        </record> -->
+
+        <!-- <record id="account.product_template_form_view_inherited" model="ir.ui.view">
+            <field name="name">account.product.form.inherited</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="account.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='taxes_id']" position="after">
+                    <field name="customer_discount"/>
+                </xpath>
+            </field>
+        </record> -->
+
+
+         <record id="view_product_hr_expense_form" model="ir.ui.view">
+            <field name="name">product.template.expense.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <div name="options" position="inside">
+                    <div>
+                        <field name="hr_expense_ok"/>
+                        <label for="hr_expense_ok"/>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+    </data>
+</openerp>

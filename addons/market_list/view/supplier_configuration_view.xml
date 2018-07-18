@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_kirirom_supplier_form">
+            <field name="name">kirirom.supplier.form</field>
+            <field name="model">kirirom.supplier</field>
+            <field name="arch" type="xml">
+                <form string="Supplier">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="supplier_id"/>
+                            </group>
+                            <group>
+                                <field name="tel"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_kirirom_supplier_tree">
+            <field name="name">kirirom.supplier.tree</field>
+            <field name="model">kirirom.supplier</field>
+            <field name="arch" type="xml">
+                <tree string="Supplier">
+                    <field name="name"/>
+                    <field name="supplier_id"/>
+                    <field name="tel"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_supplier_configuration">
+            <field name="name">Supplier</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kirirom.supplier</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem
+                id="menu_market_list_configuration"
+                name="Configuration"
+                parent="parent_menu_market_list_request"/>
+        <menuitem
+            id="supplier_menu_configuration"
+            parent="menu_market_list_configuration"
+            action="action_supplier_configuration"
+            />
+        </data>
+    </openerp>

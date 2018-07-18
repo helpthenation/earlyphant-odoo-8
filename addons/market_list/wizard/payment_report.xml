@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        <report 
+            id="report_kr_purchase_payment"
+            string="Payment Report"
+            model="kr.purchase.order.line"
+            report_type="qweb-pdf"
+            file="market_list.report_purchase_payment"
+            name="market_list.report_purchase_payment"
+            menu="False"
+        />
+        <report
+            id="entry_payment_vuocher_report"
+            string="Payment Voucher"
+            model="kr.purchase.order"
+            report_type="qweb-pdf"
+            file="market_list.report_entry_payment_vuocher_pdf"
+            name="market_list.report_entry_payment_vuocher_pdf"
+            menu="True"
+        />
+        <report
+            id="supplier_payment_voucher_report"
+            string="Supplier Payment Report"
+            model ="kr.purchase.order.line"
+            report_type="qweb-pdf"
+            file="market_list.supplier_payment_voucher_template"
+            name="market_list.supplier_payment_voucher_template"
+            menu="False"
+        />
+	</data>
+</openerp>

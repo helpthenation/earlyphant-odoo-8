@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+
+    <record id="crm_case_form_view_leads2" model="ir.ui.view">
+        <field name="name">Salesperson card</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='section_id']" position="after">
+                <field name="salesperson_card" widget="image" width="262px" height="150px"/>
+            </xpath>
+        </field>
+    </record>
+
+</data>
+</openerp>

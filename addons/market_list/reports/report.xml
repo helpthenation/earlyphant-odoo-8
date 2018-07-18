@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+
+        <report
+            id="purchase_request_marketlist_report_day1"
+            model="marketlist.request"
+            string="Market List Report Day 1"
+            report_type="qweb-pdf"
+            name="market_list.report_marketlist_day1_purchase_request_pdf"
+            file="market_list.report_marketlist_day1_purchase_request_pdf"
+            menu="True" />
+
+        <report
+            id="purchase_request_marketlist_report_day2"
+            model="marketlist.request"
+            string="Market List Report Day 2"
+            report_type="qweb-pdf"
+            name="market_list.report_marketlist_day2_purchase_request_pdf"
+            file="market_list.report_marketlist_day2_purchase_request_pdf"
+            menu="True" />
+
+        <report
+            id="purchase_request_general_report"
+            model="marketlist.general.request"
+            string="Market List General Report"
+            report_type="qweb-pdf"
+            name="market_list.report_general_purchase_request_pdf"
+            file="market_list.report_general_purchase_request_pdf"
+            menu="True" />
+
+        <report
+            id="purchase_request_general_a2a_report"
+            model="marketlist.general.a2a.request"
+            string="Market List General A2A Report"
+            report_type="qweb-pdf"
+            name="market_list.report_general_purchase_request_a2a_pdf"
+            file="market_list.report_general_purchase_request_a2a_pdf"
+            menu="True" />
+
+        <report
+            id="purchase_request_pvk_report"
+            model="marketlist.pvk.request"
+            string="Market List PVK Report"
+            report_type="qweb-pdf"
+            name="market_list.report_pvk_purchase_request_pdf"
+            file="market_list.report_pvk_purchase_request_pdf"
+            menu="True" />
+    </data>
+</openerp>
