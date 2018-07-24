@@ -15,12 +15,14 @@
 			<field name="flow_start">True</field>
 			<field name="name">draft</field>
 		</record>
+
 		<record model="workflow.activity" id="act_confirm">
 			<field name="wkf_id" ref="wkf_reservation"/>
 			<field name="name">confirm</field>
 			<field name="kind">function</field>
 			<field name="action">confirmed_reservation()</field>
 		</record>
+
 		<record model="workflow.activity" id="act_done">
 			<field name="wkf_id" ref="wkf_reservation"/>
 			<field name="name">done</field>

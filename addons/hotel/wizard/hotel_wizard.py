@@ -30,8 +30,8 @@ class FolioReportWizard(models.TransientModel):
     _rec_name = 'report_date'
 
     report_date = fields.Datetime('Report Date')
-    # date_start = fields.Datetime('Start Date')
-    # date_end = fields.Datetime('End Date')
+     #date_start = fields.Datetime('Start Date')
+     #date_end = fields.Datetime('End Date')
     @api.multi
     def _defaults_checkin_date(self):
         checkin = datetime.datetime.now().strftime("%Y-%m-%d 07:00:00")
