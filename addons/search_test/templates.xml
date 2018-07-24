@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+        <template id="assets_frontend" inherit_id="website.assets_frontend" name="Shop">
+          <xpath expr="." position="inside">
+              <link rel='stylesheet' href='/website_sale/static/src/css/website_sale.css'/>
+              <link rel='stylesheet' href='/website_sale/static/src/css/website_mail.css'/>
+              <script type="text/javascript" src="/website_sale/static/src/js/website_sale.js"></script>
+              <script type="text/javascript" src="/website_sale/static/src/js/website_sale_payment.js"></script>
+              <script type="text/javascript" src="/website_sale/static/src/js/website_sale_validate.js"></script>
+              <script type="text/javascript" src="/website_sale/static/src/js/website_sale_tour_buy.js"></script>
+              <script type="text/javascript" src="/website_sale/static/src/js/website_sale_tracking.js"></script>
+          </xpath>
+        </template>
+
+
+        <template id="search" name="Search hidden fields">
+        <div class="input-group">
+          <input type="text" name="search" class="search-query form-control" placeholder="Search..." t-att-value="search"/>
+          <span class="input-group-btn">
+            <a class="btn btn-default a-submit"><i class="fa fa-search"/></a>
+          </span>
+        </div>
+
+</template>
+    </data>
+</openerp>
